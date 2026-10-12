@@ -151,7 +151,7 @@ Plugin**, choose the file and activate.
 Or clone into `wp-content/plugins/`:
 
 ```
-git clone https://github.com/<your-username>/loopkit.git
+git clone https://github.com/saadahmed25-dev/loopkit.git
 ```
 
 A companion theme, `loopkit-theme.zip`, ships alongside it. The plugin works
