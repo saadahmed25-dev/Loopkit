@@ -1,0 +1,157 @@
+/**
+ * LoopKit Motion Effects Stylesheet
+ * Handles sticky positioning, container clamping, and canvas badge.
+ *
+ * @package Loopkit
+ */
+
+/* =========================================================
+   STICKY POSITIONING
+   ========================================================= */
+
+.lk-sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    z-index: 100;
+    align-self: flex-start !important;
+}
+
+.lk-sticky.lk-sticky--bottom {
+    align-self: flex-end !important;
+}
+
+/* Ensure ancestors do not prevent native position: sticky via overflow */
+html:has(.lk-sticky),
+body:has(.lk-sticky),
+*:has(.lk-sticky),
+.lk-has-sticky,
+.lk-section.lk-has-sticky,
+.lk-con.lk-has-sticky,
+.lk-section:has(.lk-sticky),
+.lk-con:has(.lk-sticky),
+.lk-section-inner:has(.lk-sticky),
+.lk-con-inner:has(.lk-sticky),
+.lk-container-inner:has(.lk-sticky),
+.lk-column:has(.lk-sticky),
+.lk-column-wrap:has(.lk-sticky),
+.lk-widget-wrap:has(.lk-sticky),
+.loopkit:has(.lk-sticky),
+.entry-content:has(.lk-sticky),
+.wp-site-blocks:has(.lk-sticky),
+article:has(.lk-sticky) {
+    overflow: visible !important;
+}
+
+.lk-sticky--top {
+    top: var(--lk-sticky-offset, 0px);
+}
+
+.lk-sticky--bottom {
+    bottom: var(--lk-sticky-offset, 0px);
+}
+
+.lk-sticky--in-container {
+    transform: translateY(var(--lk-sticky-translate-y, 0px));
+}
+
+.lk-sticky--effects {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* In editor canvas, disable actual sticking so layout can be edited */
+.lk-canvas-body .lk-sticky {
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    align-self: auto !important;
+}
+
+/* Motion badges displayed on element handle in editor canvas */
+.lk-sticky-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #0073aa;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.lk-scroll-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #7b1fa2;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.lk-mouse-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #00897b;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 6px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+/* 3D Tilt perspective */
+.lk-has-mouse-tilt,
+:has(> .lk-has-mouse-tilt) {
+    perspective: 1000px;
+}
+
+.lk-has-mouse-tilt {
+    transform-style: preserve-3d;
+}
+
+
+/* prefers-reduced-motion: reduce */
+@media (prefers-reduced-motion: reduce) {
+    .lk-sticky--effects {
+        transition: none !important;
+    }
+    .lk-element,
+    .lk-element * {
+        --lk-scroll-translate-x: 0px !important;
+        --lk-scroll-translate-y: 0px !important;
+        --lk-scroll-rotate: 0deg !important;
+        --lk-scroll-scale: 1 !important;
+        --lk-scroll-opacity: 0 !important;
+        --lk-scroll-blur: 0px !important;
+        --lk-mouse-translate-x: 0px !important;
+        --lk-mouse-translate-y: 0px !important;
+        --lk-mouse-rotate-x: 0deg !important;
+        --lk-mouse-rotate-y: 0deg !important;
+        --lk-transform-rotate-x: 0deg !important;
+        --lk-transform-rotate-y: 0deg !important;
+        --lk-transform-flip-x: 1 !important;
+        --lk-transform-flip-y: 1 !important;
+        filter: none !important;
+    }
+}
+

@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Generated — rebuilt by bin/build-assets.php
+# (minified files ARE committed; this is only local build output)
+*.log
+*.bak
+*.bak.*
+*.fixed
+
+# Local environment
+.env
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Test output and scratch files
+/tests/**/screenshots/
+_lk_*.php
+_diag*.js
+reset-pass.php

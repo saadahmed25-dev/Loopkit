@@ -1,0 +1,1045 @@
+/**
+ * Loopkit Canvas Stylesheet
+ * Styles for the editor iframe (canvas preview).
+ *
+ * @package Loopkit
+ */
+
+/* Base */
+.lk-canvas-root {
+    min-height: 100%;
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding-bottom: 80px;
+}
+
+/* Loopkit main container reset (Problem 1) */
+.loopkit {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.loopkit *,
+.loopkit *::before,
+.loopkit *::after {
+    box-sizing: border-box;
+}
+
+/* Element base */
+.lk-element {
+    position: relative;
+    box-sizing: border-box;
+    transition: outline 0.1s ease;
+}
+
+/* ============================================================
+   SECTION & CONTAINER (Section 9 & Section Element Specification)
+   Boxed: outer element 100% wide for full-width background,
+          children inside .lk-section-inner / .lk-con-inner with max-width.
+   Full Width: no inner wrapper; flex/grid applies to container/section.
+   ============================================================ */
+.lk-section,
+.lk-con,
+.lk-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Boxed Section & Container */
+.lk-section-boxed,
+.lk-con-boxed {
+    width: 100%;
+    display: flex;
+}
+
+.lk-section-inner,
+.lk-con-inner,
+.lk-container-inner {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    min-height: inherit;
+    align-self: stretch;
+    position: relative;
+    z-index: 1;
+}
+
+.lk-section-full > *:not(.lk-background-overlay):not(.lk-shape-divider):not(.lk-element-handle),
+.lk-con-full > *:not(.lk-background-overlay):not(.lk-shape-divider):not(.lk-element-handle) {
+    position: relative;
+    z-index: 1;
+}
+
+.lk-section-inner.lk-con--flex,
+.lk-con-inner.lk-con--flex,
+.lk-container-inner.lk-con--flex {
+    display: flex;
+}
+
+.lk-section-inner.lk-con--grid,
+.lk-con-inner.lk-con--grid,
+.lk-container-inner.lk-con--grid {
+    display: grid;
+}
+
+/* Full Width Section & Container */
+.lk-section-full.lk-con--flex,
+.lk-con-full.lk-con--flex {
+    display: flex;
+}
+
+.lk-section-full.lk-con--grid,
+.lk-con-full.lk-con--grid {
+    display: grid;
+}
+
+/* ============================================================
+   WIDGETS & HEADING (Section 10 & Problem 3)
+   Column direction: widgets take the full width of the container.
+   Row direction: widgets size to their content, max-width 100%,
+   and wrap onto more lines only at spaces, never inside a word.
+   ============================================================ */
+.lk-widget {
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Column direction widget sizing */
+.lk-section:not(.lk-con--row):not(.lk-con--row-reversed) > .lk-widget,
+.lk-section--column > .lk-widget,
+.lk-section--column-reversed > .lk-widget,
+.lk-section-inner:not(.lk-con--row):not(.lk-con--row-reversed) > .lk-widget,
+.lk-section-inner.lk-con--column > .lk-widget,
+.lk-section-inner.lk-con--column-reversed > .lk-widget,
+.lk-con:not(.lk-con--row):not(.lk-con--row-reversed) > .lk-widget,
+.lk-con--column > .lk-widget,
+.lk-con--column-reversed > .lk-widget,
+.lk-con-inner:not(.lk-con--row):not(.lk-con--row-reversed) > .lk-widget,
+.lk-con-inner.lk-con--column > .lk-widget,
+.lk-con-inner.lk-con--column-reversed > .lk-widget {
+    width: 100%;
+}
+
+/* Row direction widget sizing */
+.lk-section.lk-con--row > .lk-widget,
+.lk-section.lk-con--row-reversed > .lk-widget,
+.lk-section-inner.lk-con--row > .lk-widget,
+.lk-section-inner.lk-con--row-reversed > .lk-widget,
+.lk-con.lk-con--row > .lk-widget,
+.lk-con.lk-con--row-reversed > .lk-widget,
+.lk-con-inner.lk-con--row > .lk-widget,
+.lk-con-inner.lk-con--row-reversed > .lk-widget {
+    width: auto;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+/* Heading widget */
+.lk-widget-heading {
+    margin: 0;
+    padding: 0;
+}
+
+.lk-heading-title {
+    margin: 0;
+    padding: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: inherit;
+}
+
+.lk-heading-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.lk-heading-title a:hover {
+    color: var(--lk-color-accent, #38A8F5);
+}
+
+/* Typography defaults */
+h1.lk-heading-title { font-size: var(--lk-h1-font-size, 40px); font-weight: var(--lk-h1-font-weight, 600); line-height: var(--lk-h1-line-height, 1.2); }
+h2.lk-heading-title { font-size: var(--lk-h2-font-size, 32px); font-weight: var(--lk-h2-font-weight, 600); line-height: var(--lk-h2-line-height, 1.3); }
+h3.lk-heading-title { font-size: var(--lk-h3-font-size, 28px); font-weight: var(--lk-h3-font-weight, 600); line-height: var(--lk-h3-line-height, 1.3); }
+h4.lk-heading-title { font-size: var(--lk-h4-font-size, 24px); font-weight: var(--lk-h4-font-weight, 600); line-height: var(--lk-h4-line-height, 1.4); }
+h5.lk-heading-title { font-size: var(--lk-h5-font-size, 20px); font-weight: var(--lk-h5-font-weight, 600); line-height: var(--lk-h5-line-height, 1.4); }
+h6.lk-heading-title { font-size: var(--lk-h6-font-size, 16px); font-weight: var(--lk-h6-font-weight, 600); line-height: var(--lk-h6-line-height, 1.5); }
+
+/* ============================================================
+   Canvas: Empty Container / Empty Section Drop Zone
+   ============================================================ */
+.lk-container-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    border: 2px dashed #d1d5db;
+    border-radius: 4px;
+    color: #9ca3af;
+    font-size: 13px;
+    transition: all 0.15s ease;
+    min-height: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.lk-container-empty .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.lk-section:hover > .lk-container-empty,
+.lk-section-inner:hover > .lk-container-empty,
+.lk-con:hover > .lk-container-empty,
+.lk-con-inner:hover > .lk-container-empty {
+    border-color: #38A8F5;
+    color: #38A8F5;
+    background: #E9F6FE;
+}
+
+/* ============================================================
+   Canvas: Outlines & Non-overlapping Handles
+   - Section: outline #1E90E0, handle at top center, background #1E90E0
+   - Container: outline #38A8F5, handle at top left, background #38A8F5
+   - Widget: outline dashed #38A8F5, handle at top right, background #38A8F5
+   ============================================================ */
+.lk-editable {
+    outline: 1px solid transparent !important;
+    outline-offset: -1px !important;
+    cursor: pointer;
+}
+
+/* Section outline */
+.lk-section.lk-editable:hover {
+    outline: 1px solid #1E90E0 !important;
+    outline-offset: -1px !important;
+}
+
+/* Container outline */
+.lk-con.lk-editable:hover {
+    outline: 1px solid #38A8F5 !important;
+    outline-offset: -1px !important;
+}
+
+/* Widget outline.
+   Was 1px dashed, which all but disappeared over a grey image placeholder —
+   you could not tell what was under the pointer. Solid and 2px, with a faint
+   wash so the whole widget reads as the thing you are about to act on. */
+.lk-widget.lk-editable:hover {
+    outline: 2px solid #38A8F5 !important;
+    outline-offset: -2px !important;
+    background-color: rgba(56, 168, 245, .06);
+}
+
+/* Selection outline */
+.lk-section.lk-editable.lk-selected {
+    outline: 2px solid #1E90E0 !important;
+    outline-offset: -2px !important;
+}
+
+/* Selected has to look different from hovered, not just thicker — at a
+   glance they were the same blue line. Selected is darker and solid. */
+.lk-con.lk-editable.lk-selected,
+.lk-widget.lk-editable.lk-selected {
+    outline: 2px solid #1565A8 !important;
+    outline-offset: -2px !important;
+    box-shadow: 0 0 0 3px rgba(21, 101, 168, .14) !important;
+}
+.lk-widget.lk-editable.lk-selected { background-color: transparent; }
+
+/* ============================================================
+   Global Section & Container Styles
+   Accent: #9B51E0, Hover: #7E3BC2, Tint: #F3EAFC
+   ============================================================ */
+.lk-global.lk-editable {
+    outline: 1px dashed #9B51E0;
+    outline-offset: -1px;
+}
+
+.lk-global.lk-editable:hover {
+    outline: 1px solid #9B51E0 !important;
+}
+
+.lk-global.lk-editable.lk-selected,
+.lk-global.lk-editable.lk-global-child-selected,
+.lk-global.lk-editable:has(.lk-selected) {
+    outline: 2px solid #9B51E0 !important;
+    outline-offset: -2px;
+}
+
+/* Global handle in #9B51E0 */
+.lk-element-handle.lk-handle-global {
+    background: #9B51E0 !important;
+}
+
+.lk-handle-global .lk-handle-globe-icon {
+    font-size: 13px;
+    width: 13px;
+    height: 13px;
+    line-height: 13px;
+    color: #fff;
+    margin-right: 3px;
+}
+
+.lk-handle-global .lk-handle-btn:hover {
+    background: #7E3BC2 !important;
+}
+
+/* Global missing placeholder */
+.lk-global-missing {
+    padding: 24px;
+    background: #FDF2F2;
+    border: 2px dashed #EF4444;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.lk-global-missing-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #991B1B;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.lk-global-missing-box .dashicons {
+    color: #EF4444;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Base handle.
+
+   It used to sit above its element — transform: translateY(-100%) — which
+   took it outside its own box and into whatever was above. Its z-index only
+   counts inside its own section's stacking context, so once it crossed that
+   boundary a neighbouring section or a sticky header could paint over it and
+   the toolbar came out half-hidden.
+
+   Now it sits just inside the top edge. Nothing can cover it because it never
+   leaves the element it belongs to — but inside means it can sit over
+   the first line of content. Making room for it on hover was tried and
+   reverted: shifting layout under the pointer makes the canvas jitter as
+   the mouse moves, and it broke hover targeting outright.
+
+   So instead it is moved out of the way of the content rather than the
+   content being moved out of its way: every handle now sits in the element's
+   top-RIGHT corner (see the three type rules below). Content is far more
+   often flush left than flush right, so the right corner collides much less,
+   and only one handle shows at a time so the three can never collide with
+   each other. A 2px inset keeps it off the very corner, and opacity .92 means
+   that where it does land on something, what is underneath still reads
+   through it instead of being hidden. */
+.lk-element-handle {
+    position: absolute !important;
+    top: 2px;
+    right: 2px;
+    display: none;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 4px;
+    margin: 0 !important;
+    z-index: 100;
+    pointer-events: auto;
+    box-sizing: border-box;
+    line-height: normal;
+    height: 26px;
+    opacity: .92;
+}
+
+/* Section handle: top right, #1E90E0 */
+.lk-handle-section {
+    left: auto;
+    right: 2px;
+    transform: none;
+    border-radius: 0 0 0 4px;
+    background: #1E90E0;
+}
+
+/* Container handle: top right, #38A8F5 */
+.lk-handle-container {
+    left: auto;
+    right: 2px;
+    transform: none;
+    border-radius: 0 0 0 4px;
+    background: #38A8F5;
+}
+
+/* Widget handle: top right, #38A8F5 */
+.lk-handle-widget {
+    left: auto;
+    right: 2px;
+    transform: none;
+    border-radius: 0 0 0 4px;
+    background: #38A8F5;
+}
+
+/* Show handles on hover and selected */
+.lk-editable:hover > .lk-element-handle,
+.lk-editable.lk-selected > .lk-element-handle {
+    display: inline-flex !important;
+}
+
+/* Only the innermost thing under the pointer shows its handle.
+   :hover applies to every ancestor too, so hovering a Heading made the
+   Heading, its Container and its Section all draw a handle — and where the
+   widget sits flush with the top of the section, all three landed on the
+   same line and covered each other. A selected element keeps its handle
+   regardless, because that is the one being worked on. */
+.lk-editable:hover:not(.lk-selected):has(.lk-editable:hover) > .lk-element-handle {
+    display: none !important;
+}
+
+/* And while the pointer is over the canvas, only the thing under it gets a
+   handle — the selected element gives its one up. Keeping both meant two
+   toolbars on screen at once, often on the same line, which is what this
+   whole rule set was supposed to stop. What is selected is still obvious:
+   it keeps its darker outline. */
+.lk-canvas-root:has(.lk-editable:hover) .lk-editable.lk-selected:not(:hover) > .lk-element-handle,
+body:has(.lk-editable:hover) .lk-editable.lk-selected:not(:hover) > .lk-element-handle {
+    display: none !important;
+}
+
+.lk-handle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 0;
+    font-size: 0;
+}
+
+.lk-handle-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.lk-handle-btn .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.lk-handle-label {
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 0 4px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.lk-sticky-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #0073aa;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    margin-right: 4px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.lk-scroll-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #7b1fa2;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    margin-right: 4px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.lk-mouse-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #00897b;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    margin-right: 4px;
+    line-height: 12px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+/* Edit button also acts as drag handle */
+.lk-handle-edit {
+    cursor: grab;
+}
+
+.lk-handle-edit:active {
+    cursor: grabbing;
+}
+
+/* ============================================================
+   Canvas: Drop Indicators & Drop Target Highlight
+   ============================================================ */
+.lk-drop-indicator-line {
+    position: absolute;
+    background: #38A8F5;
+    z-index: 99999;
+    pointer-events: none;
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(56, 168, 245, 0.7);
+}
+
+.lk-drop-indicator-line--horizontal {
+    height: 4px;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.lk-drop-indicator-line--vertical {
+    width: 4px;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+
+/* Whole area light tint on empty area or padding hover */
+.lk-drop-zone-active {
+    background-color: #E9F6FE !important;
+    outline: 2px dashed #38A8F5 !important;
+    outline-offset: -2px;
+}
+
+/* ============================================================
+   Canvas: Add New Section Area & Structure Picker at Bottom
+   ============================================================ */
+.lk-add-section-area {
+    margin: 40px auto 20px;
+    max-width: 800px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.lk-add-section-box {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.lk-add-section-box:hover {
+    border-color: #1E90E0;
+    background: #fafbfc;
+}
+
+.lk-add-section-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.lk-add-section-circle-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lk-add-section-circle-btn:hover {
+    transform: scale(1.08);
+}
+
+.lk-add-section-circle-btn .dashicons {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+}
+
+.lk-btn-add-section {
+    background: #1E90E0;
+    color: #fff;
+}
+
+.lk-btn-add-section:hover {
+    background: #1470b3;
+}
+
+.lk-btn-template-section {
+    background: #4a5568;
+    color: #fff;
+}
+
+/* Structure Picker */
+.lk-structure-picker {
+    display: none;
+    animation: lkFadeIn 0.2s ease;
+}
+
+@keyframes lkFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lk-structure-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lk-structure-presets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.lk-structure-preset {
+    display: flex;
+    gap: 3px;
+    width: 90px;
+    height: 52px;
+    padding: 6px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+}
+
+.lk-structure-preset:hover {
+    border-color: #1E90E0;
+    background: #E9F6FE;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(30, 144, 224, 0.2);
+}
+
+.lk-preset-col {
+    background: #cbd5e1;
+    border-radius: 2px;
+    height: 100%;
+    transition: background 0.15s ease;
+}
+
+.lk-structure-preset:hover .lk-preset-col {
+    background: #1E90E0;
+}
+
+.lk-structure-close {
+    margin-top: 14px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lk-structure-close:hover {
+    color: #475569;
+}
+
+/* Empty canvas state */
+.lk-canvas-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px);
+    padding: 40px 20px;
+    background: #fff;
+}
+
+.lk-empty-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 48px 40px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    transition: all 0.2s ease;
+    max-width: 480px;
+    width: 100%;
+}
+
+.lk-canvas-empty:hover .lk-empty-inner {
+    border-color: #1E90E0;
+    background: #E9F6FE;
+}
+
+.lk-empty-icon .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #9ca3af;
+}
+
+.lk-canvas-empty:hover .lk-empty-icon .dashicons {
+    color: #1E90E0;
+}
+
+.lk-empty-text {
+    font-size: 16px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.lk-canvas-empty:hover .lk-empty-text {
+    color: #1E90E0;
+}
+
+/* Inline editing */
+.lk-inline-editing {
+    outline: 2px solid #38A8F5 !important;
+    outline-offset: 2px;
+    cursor: text;
+    min-width: 20px;
+    min-height: 1em;
+}
+
+.lk-inline-editing:focus {
+    outline-color: #1E90E0 !important;
+}
+
+/* Responsive Hidden Preview in Editor */
+.lk-hidden-on-device {
+    opacity: 0.45 !important;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.06),
+        rgba(0, 0, 0, 0.06) 10px,
+        transparent 10px,
+        transparent 20px
+    ) !important;
+}
+
+/* Context Menu */
+.lk-context-menu {
+    position: fixed;
+    background: #2c2d31;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    min-width: 180px;
+    padding: 6px 0;
+    z-index: 99999;
+}
+
+.lk-context-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    color: #d5dadf;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.lk-context-item:hover {
+    background: rgba(56, 168, 245, 0.12);
+    color: #38A8F5;
+}
+
+.lk-context-item .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+}
+
+.lk-context-sep {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 4px 0;
+}
+
+.lk-context-item-danger:hover {
+    background: rgba(231, 76, 60, 0.12);
+    color: #e74c3c;
+}
+
+/* Hover outline from Structure panel */
+.lk-canvas-hover-outline {
+    outline: 2px dashed #38A8F5 !important;
+    outline-offset: -2px !important;
+}
+
+/* Editor hidden element (toggled via eye in Structure) */
+.lk-editor-hidden {
+    opacity: 0.25 !important;
+    filter: grayscale(80%) !important;
+}
+
+/* Revision read-only preview mode */
+body.lk-canvas-preview-mode .lk-element-handle,
+body.lk-canvas-preview-mode .lk-add-section-area,
+body.lk-canvas-preview-mode .lk-container-empty {
+    display: none !important;
+}
+body.lk-canvas-preview-mode .lk-editable {
+    cursor: default !important;
+    outline: none !important;
+}
+
+/* Global Header / Footer template wrapper in page editor canvas */
+.lk-global-part-wrap {
+    position: relative;
+    user-select: none;
+}
+.lk-global-part-tab {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 1000;
+    background: #f39c12;
+    color: #fff;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.lk-global-part-wrap:hover .lk-global-part-tab {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.lk-global-part-tab .dashicons {
+    font-size: 13px;
+    width: 13px;
+    height: 13px;
+}
+
+/* ============================================================
+   BACKGROUND OVERLAY & SHAPE DIVIDERS (Part B)
+   ============================================================ */
+.lk-background-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.lk-shape-divider {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    direction: ltr;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lk-shape-divider--top {
+    top: 0;
+}
+
+.lk-shape-divider--bottom {
+    bottom: 0;
+}
+
+.lk-shape-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100%;
+}
+
+/* ============================================================
+   CANVAS WIDGET ENHANCEMENTS
+   ============================================================ */
+
+/* Spacer widget visual guide in editor */
+.lk-widget-spacer:hover .lk-spacer-inner,
+.lk-element.lk-selected.lk-widget-spacer .lk-spacer-inner {
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(56, 168, 245, 0.08),
+        rgba(56, 168, 245, 0.08) 10px,
+        rgba(56, 168, 245, 0.16) 10px,
+        rgba(56, 168, 245, 0.16) 20px
+    );
+    border: 1px dashed #38A8F5;
+    box-sizing: border-box;
+}
+
+/* Shortcode & HTML preview inside canvas */
+.lk-shortcode-preview,
+.lk-shortcode-placeholder,
+.lk-html-placeholder {
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.lk-shortcode-preview .dashicons,
+.lk-shortcode-placeholder .dashicons,
+.lk-html-placeholder .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #38A8F5;
+}
+
+.lk-shortcode-loading {
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px dashed #93c5fd;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #3b82f6;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.lk-shortcode-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #38A8F5;
+    border-radius: 50%;
+    animation: lk-spin 0.8s linear infinite;
+}
+
+@keyframes lk-spin {
+    to { transform: rotate(360deg); }
+}
+
+.lk-html-script-notice {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 3px;
+    font-size: 11px;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lk-html-script-notice .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #d97706;
+}
+
+/* Fallback widget box when renderer is missing */
+.lk-widget-fallback {
+    padding: 24px;
+    background: #fdf2f2;
+    border: 2px dashed #f87171;
+    border-radius: 6px;
+    text-align: center;
+    color: #991b1b;
+}
+.lk-widget-fallback-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+.lk-widget-fallback-desc {
+    font-size: 12px;
+    color: #b91c1c;
+}
+
+/* Site Logo Canvas Placeholder */
+.lk-site-logo-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    background: #1e293b;
+    border: 1px dashed #475569;
+    border-radius: 6px;
+    color: #94a3b8;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.lk-site-logo-placeholder-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: #38A8F5;
+    flex-shrink: 0;
+}
+
+.lk-site-logo-placeholder-text {
+    line-height: 1.4;
+}
+
+
+

@@ -1,0 +1,124 @@
+/**
+ * Loopkit mascot.
+ *
+ * Shapes and moods only — nothing here knows about the builder. The tokens
+ * are fixed rather than inherited, because this renders inside the builder
+ * shell, the WP admin and the CMS screens, and those do not agree on a
+ * palette. --lkm-feature in particular must never follow a theme: the face
+ * plate is always white, so a feature colour that flips goes invisible.
+ */
+.lkm-dock{
+    --accent:#38A8F5;
+    --accent-deep:#1D7FC4;
+    --feature:#0B1220;
+    position:fixed; right:18px; bottom:18px; z-index:99990;
+    display:flex; align-items:flex-end; gap:10px;
+    pointer-events:none;
+}
+.lkm-dock > *{pointer-events:auto}
+.lkm-dock.is-hidden{display:none}
+.lkm-dock .lkm{width:62px; height:62px; flex:none; cursor:pointer;
+    filter:drop-shadow(0 6px 14px rgba(17,24,39,.18))}
+
+.lkm-bubble{
+    position:relative; order:-1; max-width:268px;
+    background:#fff; border:1px solid #E5E7EB; border-radius:13px;
+    box-shadow:0 8px 24px rgba(17,24,39,.12);
+    padding:11px 14px; font-size:13px; line-height:1.48; color:#1F2937;
+    opacity:0; transform:translateY(6px) scale(.97); transform-origin:100% 100%;
+    transition:opacity .18s ease, transform .18s ease;
+    visibility:hidden;
+}
+.lkm-bubble.is-open{opacity:1; transform:none; visibility:visible}
+.lkm-bubble b{display:block; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:#1D7FC4; margin-bottom:4px; font-weight:650}
+.lkm-bubble-close{
+    position:absolute; right:-6px; top:-6px; width:20px; height:20px; border-radius:50%;
+    background:#fff; border:1px solid #E5E7EB; color:#6B7280;
+    font-size:12px; line-height:1; cursor:pointer; padding:0;
+    display:flex; align-items:center; justify-content:center;
+}
+.lkm-bubble-close:hover{color:#1F2937; border-color:#D1D5DB}
+.lkm-bubble-close:focus-visible{outline:2px solid #38A8F5; outline-offset:1px}
+
+/* Narrow screens: the mascot holds its corner, the bubble gives way. */
+@media (max-width:782px){
+    .lkm-dock{right:12px; bottom:12px}
+    .lkm-dock .lkm{width:48px; height:48px}
+    .lkm-bubble{max-width:188px; font-size:12.5px}
+}
+/* ---- the mascot ---- */
+.lkm{width:96px; height:96px; display:block; overflow:visible}
+.lkm .lkm-shadow{fill:rgba(17,24,39,.09)}
+.lkm .lkm-body{fill:var(--accent)}
+.lkm .lkm-face{fill:#fff}
+.lkm .lkm-eye{fill:var(--feature)}
+.lkm .lkm-brow{stroke:var(--feature); stroke-width:3.8; stroke-linecap:round; fill:none; opacity:0}
+.lkm .lkm-mouth{stroke:var(--feature); stroke-width:3.6; stroke-linecap:round; stroke-linejoin:round; fill:none}
+.lkm .lkm-cheek{fill:#FF8A8A; opacity:0}
+.lkm .lkm-arm{stroke:var(--accent-deep); stroke-width:5; stroke-linecap:round; fill:none}
+.lkm .lkm-loop{stroke:var(--accent-deep); stroke-width:4.6; fill:none; stroke-linecap:round}
+.lkm .lkm-lid{stroke:var(--feature); stroke-width:3.8; stroke-linecap:round; fill:none; opacity:0}
+.lkm .lkm-zzz{fill:var(--ink-faint); opacity:0; font-size:13px; font-weight:700}
+.lkm .lkm-spark{fill:#FFC53D; opacity:0}
+
+/* everything animates off one group so the whole character moves together */
+.lkm-all{transform-origin:50px 58px; animation:lkm-breathe 3.6s ease-in-out infinite}
+@keyframes lkm-breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1.5px) scale(1.012)}}
+
+/* blink — idle and happy only, so a sleeping face does not twitch */
+.lkm-eyes{transform-origin:50px 52px; animation:lkm-blink 5.2s infinite}
+@keyframes lkm-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+
+/* --- HAPPY --- */
+.lkm.is-happy .lkm-cheek{opacity:.85}
+.lkm.is-happy .lkm-all{animation:lkm-hop .62s cubic-bezier(.3,1.5,.5,1) 1, lkm-breathe 3.6s ease-in-out .62s infinite}
+@keyframes lkm-hop{0%{transform:translateY(0)}35%{transform:translateY(-13px) scale(1.04,.97)}70%{transform:translateY(0) scale(.97,1.03)}100%{transform:translateY(0) scale(1)}}
+.lkm.is-happy .lkm-arm-l{animation:lkm-wave .62s ease-in-out 2}
+@keyframes lkm-wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-22deg)}}
+.lkm-arm-l{transform-origin:24px 64px}
+
+/* --- ANGRY --- */
+.lkm.is-angry .lkm-body{fill:#E8734A}
+.lkm.is-angry .lkm-arm,.lkm.is-angry .lkm-loop{stroke:#C4512C}
+.lkm.is-angry .lkm-brow{opacity:1}
+.lkm.is-angry .lkm-eyes{animation:none}
+.lkm.is-angry .lkm-all{animation:lkm-shake .42s ease-in-out 2, lkm-breathe 3.6s ease-in-out .84s infinite}
+@keyframes lkm-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px) rotate(-3deg)}50%{transform:translateX(4px) rotate(3deg)}80%{transform:translateX(-2px) rotate(-1deg)}}
+
+/* --- THINKING --- */
+.lkm.is-thinking .lkm-eyes{animation:none; transform:translate(4px,-3px)}
+.lkm.is-thinking .lkm-brow-r{opacity:1; transform:translateY(-4px) rotate(-9deg)}
+.lkm-brow-r{transform-origin:62px 40px}
+.lkm.is-thinking .lkm-all{animation:lkm-tilt 2.8s ease-in-out infinite}
+@keyframes lkm-tilt{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
+
+/* --- SLEEPING --- */
+.lkm.is-sleeping .lkm-eye{opacity:0}
+.lkm.is-sleeping .lkm-lid{opacity:1}
+.lkm.is-sleeping .lkm-eyes{animation:none}
+.lkm.is-sleeping .lkm-body{fill:#9FC6E0}
+.lkm.is-sleeping .lkm-arm,.lkm.is-sleeping .lkm-loop{stroke:#6E9DBD}
+.lkm.is-sleeping .lkm-zzz{opacity:1; animation:lkm-float 2.6s ease-in-out infinite}
+.lkm.is-sleeping .lkm-all{animation:lkm-breathe 5.4s ease-in-out infinite}
+@keyframes lkm-float{0%{opacity:0; transform:translate(0,0)}30%{opacity:.9}100%{opacity:0; transform:translate(7px,-16px)}}
+
+/* --- EXCITED (drag) --- */
+.lkm.is-excited .lkm-all{animation:lkm-bounce .5s ease-in-out infinite}
+@keyframes lkm-bounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.03,.97)}}
+.lkm.is-excited .lkm-eyes{animation:none; transform:scale(1.14)}
+.lkm.is-excited .lkm-spark{opacity:1; animation:lkm-twinkle .9s ease-in-out infinite}
+@keyframes lkm-twinkle{0%,100%{opacity:0; transform:scale(.6)}50%{opacity:1; transform:scale(1)}}
+.lkm-spark{transform-origin:center}
+
+
+/* The dock supplies its own tokens, so the mascot rules can use them here too. */
+.lkm-dock .lkm .lkm-eye{fill:var(--feature)}
+.lkm-dock .lkm .lkm-mouth{stroke:var(--feature)}
+.lkm-dock .lkm .lkm-brow{stroke:var(--feature)}
+.lkm-dock .lkm .lkm-lid{stroke:var(--feature)}
+
+@media (prefers-reduced-motion: reduce){
+    .lkm *{animation:none !important}
+    .lkm-bubble{transition:none}
+}

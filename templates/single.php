@@ -1,0 +1,35 @@
+<?php
+/**
+ * Loopkit Single template wrapper (classic themes).
+ *
+ * Loaded by Loopkit_Theme_Builder::apply_single_template() when a published Single
+ * template's Display Conditions match the current post or page. Keeps the theme's
+ * header and footer (which Loopkit Header/Footer templates may replace) and prints
+ * the Single template in between.
+ *
+ * @package Loopkit
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// The Loopkit companion theme already opens <main id="primary"> in header.php.
+$loopkit_theme_has_main = current_theme_supports( 'loopkit-theme' );
+$loopkit_wrapper_tag    = $loopkit_theme_has_main ? 'div' : 'main';
+$loopkit_wrapper_id     = $loopkit_theme_has_main ? '' : ' id="primary"';
+
+get_header();
+?>
+<<?php echo $loopkit_wrapper_tag . $loopkit_wrapper_id; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="site-main loopkit-single-template-wrap">
+<?php
+while ( have_posts() ) :
+    the_post();
+    if ( class_exists( 'Loopkit_Templates' ) && method_exists( 'Loopkit_Templates', 'render_template' ) ) {
+        echo Loopkit_Templates::render_template( 'single' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    }
+endwhile;
+?>
+</<?php echo $loopkit_wrapper_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<?php
+get_footer();
